@@ -1,0 +1,512 @@
+
+first lecture
+const name = <h1>Dlvin</h1>
+  const user = (
+  <div>
+    {name}
+    <h2>21</h2>
+    <h2>Dlvin@gmail.com</h2>
+  </div>
+  );
+  return (
+    <div className="App">
+      <User name="dlo"  age={21} email="dlo@gmail.comm"/>
+    </div>
+  );
+   const User = () => {
+  return (
+      <><h1>Dlvin</h1>
+      <h2>21</h2>
+      <h2>Dlvin@gmail.com</h2></>
+  )
+} 
+
+const User = (props) => {
+  return (
+      <><h1>{props.name}</h1>
+      <h2>{props.age}</h2>
+      <h2>{props.email}</h2></>
+  )
+}
+
+ternary operators
+function App() {
+  const age = 19;
+  const isGreen = true;
+  return(
+  <div className='App' style={{backgroundColor : isGreen && "pink"}}>
+    <h1>{age >= 18 ? "Over aged" : "under aged"}</h1>
+    {age >= 18 ? <h2>"over aged"</h2> : <h2>under aged</h2>}
+    <h1 style={{color:isGreen ? "green" : "hotpink"}}>THIS IS A TEXT</h1>
+    {isGreen && <button>hii</button>}
+
+  </div>);
+
+}
+
+users.map(function(user , key, array){
+
+    return <div style={{fontFamily: 'cursive', color: "#cb4154"}} key={key}>{(key + 1)+"-"+ user.name + " " + user.age}</div>
+                                          })
+
+                                          import './App.css';
+import { Planet } from './planets';
+//components can't start with lowercase letter
+function App() {
+ 
+  const names = ['lara','tara','dlvin','sarsam'];
+  const users = [
+    {name: 'lara' , age: 18},
+    {name: 'tara' , age: 20},
+    {name: 'dlvin' , age: 21}];
+
+  const planets = [
+    {name: 'Mars' , isGasPlanet : false},
+    {name: 'Earth' , isGasPlanet : false},
+    {name: 'Venus' , isGasPlanet : false},
+    {name: 'Jupiter' , isGasPlanet : true},
+    {name: 'Neptune' , isGasPlanet : true},
+    {name: 'Uranus' , isGasPlanet : true}];
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8"}}>
+   <h1>
+    {planets.map(function(planet , key, array){
+
+    return <Planet name={planet.name} isGasPlanet={planet.isGasPlanet}/> })}
+   </h1>
+  </div>);
+
+}
+
+const User = (props) =>{
+  return <div style={{color: "white"}}>{props.name + " " + props.age}</div>
+}
+
+
+function App() {
+ 
+  const [inputValue , setInputValue] = useState("");
+ 
+  const showValue = (event) => setInputValue(event.target.value);
+  
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 60}}>
+    <input onChange={showValue}/>
+    {inputValue}
+  </div>);
+
+}
+
+const [showText , setShowText] = useState(true);
+ 
+  
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 60}}>
+   
+   <button onClick={() => setShowText(!showText)}>show/hide text</button>
+   {showText === true && <h1>HI MY NAME IS DLO</h1>}
+
+   </div>)
+
+   function App() {
+ 
+  const [stateColor , setStateColor] = useState("white");
+ 
+  
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 60}}>
+   
+   <button onClick={() =>setStateColor(stateColor === "white" ? "teal" : "white") }>show/hide text</button>
+   <h1 style={{color: stateColor}}>HI MY NAME IS DLO</h1>
+
+   </div>);
+
+}
+
+// todolist app
+import { useState } from 'react';
+import './App.css';
+import { Task } from './task';
+//components can't start with lowercase letter
+function App() {
+ 
+  const [todoList , setTodoList] = useState([]);
+  const [newTask , setNewTask] = useState("");
+ 
+  const addNewTask = (event) => {
+    
+    setNewTask(event.target.value);
+  }
+  
+  const addToTodoList = () =>{
+    const task = {
+      id : todoList.length === 0 ? 1 : todoList[todoList.length -1].id + 1,
+      taskName: newTask,
+      complete: false
+    }
+    setTodoList([...todoList , task]);
+    
+  }
+
+  const deleteTask = (taskId) =>{
+    setTodoList(todoList.filter((task) => task.id !== taskId));
+  }
+  const completeFun = (taskId) => {
+    setTodoList(todoList.map((task) => {
+      if(task.id === taskId){
+        return {...task, complete: true};
+      }else{
+        return task;
+      }
+    }));
+  }
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+   <div className="addTask">
+    <input onChange = {addNewTask}/>
+    <button onClick={addToTodoList}>Add Task</button>
+   </div>
+   <div className="list">
+    {todoList.map((task ) => {
+      return <Task taskName = {task.taskName} id = {task.id} deleteTask = {deleteTask} complete = {task.complete} completeFun = {completeFun}/>
+    })}
+   </div>
+   </div>);
+
+}
+
+function App() {
+ 
+  const [showText , setShowText] = useState(false);
+  useEffect(()=>{
+    console.log('mounting');
+    return ()=>{
+      console.log('unmounting')
+    }
+  },[])
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+   <button onClick={() => {setShowText(!showText)}}> show </button>
+   {showText && <Text/>}
+   </div>);
+
+}
+
+function App() {
+ 
+/*    fetch("https://catfact.ninja/fact")
+  .then((res) => res.json())
+  .then((info)=>{
+    console.log(info);
+  });  
+
+  const [catFact , setCatFact] = useState("");
+   
+  const fetchCatFact = () => {
+    Axios.get("https://catfact.ninja/fact")
+    .then((res)=>{
+    setCatFact(res.data.fact);
+    }); }
+  useEffect(()=>{
+    fetchCatFact();
+  },[]);
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+    <button onClick={fetchCatFact}>show catinfo</button>
+    <p>{catFact}</p>
+   </div>);
+
+}
+
+function App() {
+ 
+  const [name , setName] = useState("");
+  const [data, setData] = useState(null);
+   
+  const fetchPredictedAge = () => {
+    Axios.get(`https://api.agify.io/?name=${name}`)
+    .then((res)=>{
+    setData(res.data);
+    }); }
+
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+    <input onChange={(event)=>{
+      setName(event.target.value);
+    }}/>
+    <button onClick={fetchPredictedAge}>show predicted age</button>
+    <h1>Name: {data?.name}</h1>
+    <h1>Age: {data?.age}</h1>
+    <h1>Count: {data?.count}</h1>
+
+   </div>);
+
+}
+
+export const AppContext = createContext();
+
+function App() {
+ 
+  const [userName , setUserName] = useState("dlo");
+
+
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+    <AppContext.Provider value={{userName , setUserName}}>
+  <Router>
+    <Navbar/>
+    <Routes>
+      <Route path='/' element={<Home userName={userName}/>}/>
+      <Route path='/profile' element={<Profile userName={userName} />}/>
+      <Route path='/contact' element={<Contact />}/>
+      <Route path='*' element={<h1>PAGE NOT FOUND</h1>}/>
+
+    </Routes>
+  </Router>
+  </AppContext.Provider>
+   </div>);
+
+}
+
+
+import { useEffect , useState , createContext} from 'react';
+import './App.css';
+import  Axios  from 'axios';
+import { createBrowserRouter, createRoutesFromElements, Route, Link, Outlet, RouterProvider} from 'react-router-dom';
+import { Home } from './pages/home';
+import { Contact, ContactLoader } from './pages/contact';
+import {  Profile } from './pages/profile';
+import { Navbar } from './pages/navbar';
+//components can't start with lowercase letter
+
+export const AppContext = createContext();
+
+function App() {
+ 
+  const [userName , setUserName] = useState("dlo");
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Root/>}>
+        <Route index element={<Home/>}/>
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/contact' element={<Contact/>} loader={ContactLoader}/>
+      </Route>
+    )
+  );
+
+
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+  <AppContext.Provider value={{userName , setUserName}}>
+    <RouterProvider router={router}/>
+  </AppContext.Provider>
+
+
+   </div>);
+
+}
+
+export default App;
+
+
+const Root = () => {
+
+  return <>
+  <div>
+  <Link to='/'>home</Link>
+  <Link to='/profile'>profile</Link>
+  </div>
+  
+  <div>
+  <Outlet/>
+  </div></>
+}
+
+
+
+
+
+import { useEffect , useState , createContext} from 'react';
+import './App.css';
+import  Axios  from 'axios';
+import { createBrowserRouter, createRoutesFromElements, Route, Link, Outlet, RouterProvider} from 'react-router-dom';
+import { Home } from './pages/home';
+import { Contact, ContactLoader } from './pages/contact';
+import {  Profile } from './pages/profile';
+import { Navbar } from './pages/navbar';
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query';
+//components can't start with lowercase letter
+
+export const AppContext = createContext();
+//you wanna setup the react query at the highest level of your application in which you want to make a request
+function App() {
+ 
+  const [userName , setUserName] = useState("dlo");
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Root/>}>
+        <Route index element={<Home/>}/>
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/dogPic' element={<Contact/>} loader={ContactLoader}/>
+        <Route path='*' element={<h1>page not found</h1>}/>
+      </Route>
+    )
+  );
+
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
+  return(
+  <div className='App' style={{backgroundColor : "#C8A2C8" , fontSize: 30}}>
+    <QueryClientProvider client={client}>
+  <AppContext.Provider value={{userName , setUserName}}>
+    <RouterProvider router={router}/>
+  </AppContext.Provider>
+  </QueryClientProvider>
+  </div>);
+
+}
+
+export default App;
+
+
+const Root = () => {
+
+  return <>
+  <div>
+  <Link to='/'>home </Link>
+  <Link to='/profile'>profile </Link>
+  <Link to='/dogPic'>dogPic </Link>
+  </div>
+  
+  <div>
+  <Outlet/>
+  </div></>
+}
+
+
+home
+
+import { useContext } from "react"
+import { AppContext } from "../App"
+import Axios from 'axios'
+import { useNavigation } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
+export const Home = () => {
+    const navigation = useNavigation();
+    const { data: catData, isLoading, isError, refetch } = useQuery(["cat"], () => {
+        return Axios.get("https://catfact.ninja/fact").then((res) => res.data);
+    })
+    const { userName } = useContext(AppContext);
+
+    if(isError){
+        return <h1>sorry, there was an error</h1>
+    }
+    if(navigation.state === "loading" || isLoading){
+        return <>loading...</>
+    }else{
+        return<><h1>THIS IS THE HOME PAGE and the user is {userName}</h1>
+        <p> {catData?.fact} </p>
+        <button onClick={ refetch }>update data</button>
+        </>
+    }
+   
+}
+
+
+
+profile
+
+import { useContext } from "react"
+import { AppContext } from "../App"
+import {ChangeProfile} from "../components/changeProfile"
+export const Profile = () => {
+    const { userName } = useContext(AppContext);
+    return<><h1>PROFILE and the user is {userName}</h1>
+    <ChangeProfile /></>
+}
+
+
+
+
+changeProfile
+
+
+import { useContext , useState } from "react"
+import { AppContext } from "../App"
+export const ChangeProfile = () => {
+
+    const [newUsername , setNewUsername] = useState("");
+    const { setUserName } = useContext(AppContext);
+
+    return <>
+    <input onChange= {(event) => {
+        setNewUsername(event.target.value);
+    }}/>
+    <button onClick={() =>{
+        setUserName(newUsername);
+    }}>change user name</button>
+    </>
+}
+
+
+creating hook first example
+
+import './App.css';
+import { useState } from 'react';
+import { useToggle } from './useToggle';
+//components can't start with lowercase letter
+//you wanna setup the react query at the highest level of your application in which you want to make a request
+function App() {
+ 
+  const {state: isVisible, toggle} = useToggle(false);
+
+  return(
+  <div className='App' style={{backgroundColor : "#C3C2C0" , fontSize: 30}}>
+    <button onClick={ toggle }>{isVisible ? 'hide' : 'show'}</button>
+    <h1>{isVisible && 'hidden text' }</h1>
+
+  </div>);
+
+}
+
+
+export default App;
+
+import './App.css';
+import { useState } from 'react';
+import { useToggle } from './useToggle';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Cat } from './pages/cat';
+//components can't start with lowercase letter
+//you wanna setup the react query at the highest level of your application in which you want to make a request
+function App() {
+ 
+  const {state: isVisible, toggle} = useToggle(false);
+
+  const client = new QueryClient({
+    defaultOptions:{
+      queries:{
+        refetchOnWindowFocus:false,
+      }
+    }
+  });
+  return(
+  <div className='App' style={{backgroundColor : "#C3C2C0" , fontSize: 30}}>
+    <QueryClientProvider client={client}>
+      <Cat/>
+    <button onClick={ toggle }>{isVisible ? 'hide' : 'show'}</button>
+    <h1>{isVisible && 'hidden text' }</h1>
+    </QueryClientProvider>
+  </div>);
+
+}
+
+export default App;
